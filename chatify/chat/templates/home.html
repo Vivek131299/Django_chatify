@@ -13,20 +13,22 @@
                     <div class="card-body">
                         {{ user.username }}
                       <div class="float-right card-link">
-                          {% if user not in sent_requests_to_users %}
+                          {% if user not in sent_requests_to_users and user not in received_requests_from_users %}
                               <a href="{% url 'send_request' user.id %}">
                                 <button class="btn">Send request</button>
                               </a>
+                          {% elif user not in accepted_sent_requests_to_users and user not in received_requests_from_users %}
+                              <a href="#">
+                                  <button class="btn" disabled>Request sent</button>
+                              </a>
+                          {% elif user in received_requests_from_users and user not in accepted_received_requests_from_users %}
+                              <a href="{% url 'accept_request' user.id request.user.id %}">
+                                  <button class="btn">Accept request</button>
+                              </a>
                           {% else %}
-                              {% if user not in accepted_requests_users %}
-                                <a href="#">
-                                    <button class="btn" disabled>Request sent</button>
-                                  </a>
-                              {% else %}
-                                <a href="#">
-                                    <button class="btn">Chat</button>
-                                  </a>
-                              {% endif %}
+                              <a href="#">
+                                  <button class="btn">Chat</button>
+                              </a>
                           {% endif %}
                       </div>
                     </div>

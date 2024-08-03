@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-md-center">
+    <div class="col-md-5">
+        <div class="card">
+          <h4 class="card-header">
+            Sent requests
+          </h4>
+            {% if not_accepted_sent_requests %}
+                <ul class="list-group list-group-flush">
+                {% for r in not_accepted_sent_requests %}
+                    <li class="card list-group-item">
+                        {{ r.request_sent_to }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <footer class="blockquote-footer"> Nothing sent yet </footer>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card">
+          <h4 class="card-header">
+            Received requests
+          </h4>
+            {% if not_accepted_received_requests %}
+                <ul class="list-group list-group-flush">
+                {% for r in not_accepted_received_requests %}
+                    <li class="card list-group-item">
+                        <div class="card-body">
+                            {{ r.request_sent_from }}
+                            <div class="float-right card-link">
+                                <a href="{% url 'accept_request_by_id' r.id %}">
+                                  <button class="btn">Accept request</button>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+            <footer class="blockquote-footer"> Nothing received yet </footer>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

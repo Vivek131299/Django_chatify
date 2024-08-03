@@ -32,7 +32,7 @@
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
                     <a class="nav-item nav-link mt-1" href="#">Chats</a>
-                    <a class="nav-item nav-link mt-1" href="#">Requests</a>
+                    <a class="nav-item nav-link mt-1" href="{% url 'requests' %}">Requests</a>
                     <a class="nav-item nav-link mt-1" data-toggle="tooltip" data-placement="bottom" title="{{ user.email }}" style="color: rgb(255, 255, 255);">
                       <i class="bi bi-person"></i> {{ user.username }}
                     </a>
