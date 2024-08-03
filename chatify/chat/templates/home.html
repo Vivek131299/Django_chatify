@@ -1,4 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-<p>Home</p>
+<h2>Home</h2>
+<br>
+<div class="card" style="width: 25rem;">
+  <div class="card-header">
+    All Users
+  </div>
+  <ul class="list-group list-group-flush">
+      {% if users %}
+        {% for user in users %}
+                <div class="card list-group-item">
+                    <div class="card-body">
+                        {{ user.username }}
+                      <div class="float-right card-link">
+                          {% if user not in sent_requests_to_users %}
+                              <a href="{% url 'send_request' user.id %}">
+                                <button class="btn">Send request</button>
+                              </a>
+                          {% else %}
+                              {% if user not in accepted_requests_users %}
+                                <a href="#">
+                                    <button class="btn" disabled>Request sent</button>
+                                  </a>
+                              {% else %}
+                                <a href="#">
+                                    <button class="btn">Chat</button>
+                                  </a>
+                              {% endif %}
+                          {% endif %}
+                      </div>
+                    </div>
+                </div>
+        {% endfor %}
+      {% endif %}
+  </ul>
+</div>
 {% endblock content %}
