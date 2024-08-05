@@ -31,14 +31,13 @@
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
-                    <a class="nav-item nav-link mt-1" href="#">Chats</a>
                     <a class="nav-item nav-link mt-1" href="{% url 'requests' %}">Requests</a>
                     <a class="nav-item nav-link mt-1" data-toggle="tooltip" data-placement="bottom" title="{{ user.email }}" style="color: rgb(255, 255, 255);">
                       <i class="bi bi-person"></i> {{ user.username }}
                     </a>
-                    <form method="post" action="{% url 'logout' %}">
+                    <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                        <button type="submit" class="nav-item btn btn-danger btn-sm mt-1">Logout</button>
                     </form>
                         {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}" style="color: rgb(255, 255, 255);">Login</a>
