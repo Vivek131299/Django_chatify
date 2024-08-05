@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-su-r=h-rp_z8w8mzj98#8vx2gx7=qwfa5m10lpro&kgefu$zl1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_chatify',
-        'USER': 'root',
-        'PASSWORD': "My@mysql123",
+        'USER': '',
+        'PASSWORD': "",
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -142,3 +142,12 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 LOGOUT_RIDIRECT_URL = 'login'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_rabbitmq.core.RabbitmqChannelLayer",
+        "CONFIG": {
+            "host": "amqp://guest:guest@localhost:5672/",
+        },
+    },
+}

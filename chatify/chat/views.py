@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -6,7 +7,7 @@ from django.shortcuts import render, redirect
 from.forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 
-from .models import Request
+from .models import Request, ChatMessage
 
 
 @csrf_exempt
@@ -85,6 +86,21 @@ def accept_request_by_id(request, id=None):
             chat_request.save()
 
             return redirect("home")
+
+
+@csrf_exempt
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def chat_view(request, receiver_id=None):
+    if request.method == 'GET':
+        if receiver_id:
+            receiver = User.objects.get(id=receiver_id)
+            previous_chats = list(ChatMessage.objects.filter(
+                (Q(sender_id=request.user.id) & Q(receiver_id=receiver_id)) |
+                (Q(sender_id=receiver_id) & Q(receiver_id=request.user.id))
+            ).order_by('timestamp'))
+
+            return render(request, "chat.html", {"previous_chats": previous_chats, "receiver": receiver})
 
 
 def register(request):

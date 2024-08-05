@@ -3,9 +3,9 @@
 <h2>Home</h2>
 <br>
 <div class="card" style="width: 25rem;">
-  <div class="card-header">
+  <h5 class="card-header">
     All Users
-  </div>
+  </h5>
   <ul class="list-group list-group-flush">
       {% if users %}
         {% for user in users %}
@@ -26,7 +26,7 @@
                                   <button class="btn">Accept request</button>
                               </a>
                           {% else %}
-                              <a href="#">
+                              <a href="{% url 'chat' user.id %}">
                                   <button class="btn">Chat</button>
                               </a>
                           {% endif %}
